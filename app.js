@@ -15,3 +15,12 @@ function sum(a, b) {
 }
 
 module.exports = sum;
+
+const name1 = "eric troll";
+const nums = [1, 2, 3];
+
+const myName = function (name) {
+  console.log(name);
+};
+
+let address;
