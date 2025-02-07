@@ -1,0 +1,30 @@
+{
+  "name": "js-api1",
+  "version": "1.0.0",
+  "description": "Arbeidskrav 1 JS",
+  "keywords": [
+    "api",
+    "storage"
+  ],
+  "homepage": "https://github.com/abdilatiiif/JS-API1#readme",
+  "bugs": {
+    "url": "https://github.com/abdilatiiif/JS-API1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdilatiiif/JS-API1.git"
+  },
+  "license": "ISC",
+  "author": "Latif Hassan",
+  "type": "commonjs",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
