@@ -13,13 +13,18 @@
       <div id="character-creator" class="section">
         <h1>Lag din helt</h1>
         <label for="character-name">Navn:</label>
-        <input type="text" id="character-name" placeholder="Velg et navn" />
+        <input
+          required
+          type="text"
+          id="character-name"
+          placeholder="Velg et navn"
+        />
 
         <label for="character-hp">HP:</label>
-        <input type="number" id="character-hp" />
+        <input required type="number" id="character-hp" />
 
         <label for="attack-damage">Angrepsstyrke:</label>
-        <input type="number" id="attack-damage" />
+        <input required type="number" id="attack-damage" />
 
         <h3>Velg ditt profilbilde:</h3>
         <div class="profile-pics">
@@ -33,6 +38,10 @@
         </div>
 
         <button id="create-character">Lag karakter</button>
+
+        <div class="helter">
+          <!-- ny character-->
+        </div>
       </div>
 
       <!-- Oppgave 2: Generer fiende -->
