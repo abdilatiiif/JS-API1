@@ -25,7 +25,13 @@ profilesPic.forEach((img) => {
 createCharacterBtn.addEventListener("click", () => {
   const id = Math.floor(Math.random() * 100) + 1;
 
-  if (!characterName.value || !characterAD.value || !characterHP.value) return; // hvis inputs er tom, ikke lag character
+  if (
+    !characterName.value ||
+    !characterAD.value ||
+    !characterHP.value ||
+    !selectedImg
+  )
+    return; // hvis inputs er tom, ikke lag character
 
   const newCharacter = {
     name: characterName.value,
@@ -68,9 +74,54 @@ createCharacterBtn.addEventListener("click", () => {
 });
 
 //Seksjon 2: Generer fiende
+const createEnemyBtn = document.getElementById("generate-enemy");
+const enemyContainer = document.getElementById("enemy-creator");
+
+console.log(enemyContainer);
+
+createEnemyBtn.addEventListener("click", () => {
+  const id = Math.floor(Math.random() * 100) + 1;
+
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // bildene lagret på array
+  const monsterImg = [
+    "assets/swamp-monster.jpg",
+    "assets/monster.jpg",
+    "assets/dragon.jpg",
+  ];
+
+  const enemy = {
+    attackDamage: getRandomNumber(10, 40),
+    health: getRandomNumber(50, 150),
+    Image: monsterImg[Math.floor(Math.random() * monsterImg.length)],
+    id: id,
+  };
+
+  const enemyHTML = document.createElement("div");
+  enemyHTML.innerHTML = `<div id="enemy-display">
+  <img id="enemy-img" src=${enemy.Image} class="profile-img" />
+  <p id="enemy-name">Type:  Monster 👹 </p>
+  <p id="enemy-hp">Health:  ${enemy.health} 🩸</p>
+  <p id="enemy-attack">Attack: ${enemy.attackDamage} ⚔️</p>
+  </div>`;
+
+  // render monster på siden
+  enemyContainer.appendChild(enemyHTML.firstElementChild);
+  console.log(enemy);
+
+  // lagre på local storage med egen id
+  localStorage.setItem(`enemy${id}`, JSON.stringify(enemy));
+});
 
 // Seksjon 3: Sloss!
 //Du skal vise frem helten og fienden. Se HTML-dokumentet for hvordan fremvisningen skal se ut, med tanke på hvilke tagger, hierarki og hvilke klasser de skal ha.
 //Du skal lage den strukturen som vist i HTML, her i Javascript og legge de til i div'en "battle-arena" fra HTML.
+
+const fightBtn = document.getElementById("start-fight");
+
+fightBtn.addEventListener("click", () => console.log("start fight"));
 
 // npm test funker
