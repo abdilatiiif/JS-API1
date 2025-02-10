@@ -54,12 +54,12 @@ createCharacterBtn.addEventListener("click", () => {
               src="${selectedImg}"
               alt="Profilbilde"
             />
-            <p id="char-name">Navn: ${characterName.value}</p>
-            <p id="char-hp">Helse: ${characterHP.value}</p>
-            <p id="char-attack">attack:  ${characterAD.value}</p>
+            <p id="char-name">Navn: ${characterName.value} 🧍🏾‍♂️</p>
+            <p id="char-hp">Helse: ${characterHP.value} 🩸</p>
+            <p id="char-attack">attack:  ${characterAD.value} ⚔</p>
           </div>`;
 
-  helterDiv[0].appendChild(characterHTML.firstElementChild);
+  helterDiv[0].appendChild(characterHTML);
 
   // siden husker heltene etter reload og vises på siden!
 
@@ -77,21 +77,26 @@ createCharacterBtn.addEventListener("click", () => {
 const createEnemyBtn = document.getElementById("generate-enemy");
 const enemyContainer = document.getElementById("enemy-creator");
 
-console.log(enemyContainer);
+// alle monstere
+const monsterImg = [
+  "assets/swamp-monster.jpg",
+  "assets/monster.jpg",
+  "assets/dragon.jpg",
+];
+
+const heroImg = [
+  "assets/hunter.jpg",
+  "assets/mage.webp",
+  "assets/death-knight.jpeg",
+];
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const id = Math.floor(Math.random() * 100) + 1;
 
 createEnemyBtn.addEventListener("click", () => {
-  const id = Math.floor(Math.random() * 100) + 1;
-
-  function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   // bildene lagret på array
-  const monsterImg = [
-    "assets/swamp-monster.jpg",
-    "assets/monster.jpg",
-    "assets/dragon.jpg",
-  ];
 
   const enemy = {
     attackDamage: getRandomNumber(10, 40),
@@ -109,7 +114,7 @@ createEnemyBtn.addEventListener("click", () => {
   </div>`;
 
   // render monster på siden
-  enemyContainer.appendChild(enemyHTML.firstElementChild);
+  enemyContainer.appendChild(enemyHTML);
   console.log(enemy);
 
   // lagre på local storage med egen id
@@ -121,7 +126,55 @@ createEnemyBtn.addEventListener("click", () => {
 //Du skal lage den strukturen som vist i HTML, her i Javascript og legge de til i div'en "battle-arena" fra HTML.
 
 const fightBtn = document.getElementById("start-fight");
+const battle = document.getElementById("battle");
+const result = document.getElementById("battle-result");
 
-fightBtn.addEventListener("click", () => console.log("start fight"));
+fightBtn.addEventListener("click", () => {
+  battle.innerHTML = "";
+
+  const enemy = {
+    attackDamage: getRandomNumber(10, 40),
+    health: getRandomNumber(50, 150),
+    Image: monsterImg[Math.floor(Math.random() * monsterImg.length)],
+    id: id,
+  };
+
+  const hero = {
+    attackDamage: getRandomNumber(10, 40),
+    health: getRandomNumber(50, 150),
+    Image: heroImg[Math.floor(Math.random() * monsterImg.length)],
+    id: id,
+  };
+
+  console.log(enemy, hero);
+
+  let fightHTML = document.createElement("div");
+
+  fightHTML.innerHTML = `  <div id="character-display" class="profile-card">
+          <h2>Helten</h2>
+          <img id="char-img" src=${hero.Image} alt="Profilbilde" />
+          <p id="char-name"></p>
+          <p id="char-hp">Health: ${hero.health} 🩸</p>
+          <p id="char-attack">Attack Damage: ${hero.attackDamage} ⚔️</p>
+        </div> 
+        
+        <div id="enemy-fight-display" class="profile-card">
+          <h2>Fiende</h2>
+          <img id="enemy-fight-img" src=${enemy.Image} alt="Fiendens profilbilde" />
+          <p id="enemy-fight-name"></p>
+          <p id="enemy-fight-hp"> Health: ${enemy.health} 🩸</p>
+          <p id="enemy-fight-attack"> Attack Damage: ${enemy.attackDamage} ⚔️</p>
+        </div>`;
+
+  // render fight på siden
+  battle.appendChild(fightHTML);
+
+  result.innerHTML =
+    hero.health === enemy.health
+      ? "uavgjort"
+      : `${enemy.health < hero.health ? "Helten vant" : "Fienden vant"}`;
+
+  fightHTML = "";
+});
 
 // npm test funker
