@@ -97,13 +97,17 @@ const id = Math.floor(Math.random() * 100) + 1;
 
 createEnemyBtn.addEventListener("click", () => {
   // bildene lagret på array
+  const id = Math.floor(Math.random() * 100) + 1;
 
   const enemy = {
+    type: "monster",
     attackDamage: getRandomNumber(10, 40),
     health: getRandomNumber(50, 150),
     Image: monsterImg[Math.floor(Math.random() * monsterImg.length)],
     id: id,
   };
+  // lagre på local storage med egen id
+  localStorage.setItem(enemy.type + id, JSON.stringify(enemy));
 
   const enemyHTML = document.createElement("div");
   enemyHTML.innerHTML = `<div id="enemy-display">
@@ -116,9 +120,6 @@ createEnemyBtn.addEventListener("click", () => {
   // render monster på siden
   enemyContainer.appendChild(enemyHTML);
   console.log(enemy);
-
-  // lagre på local storage med egen id
-  localStorage.setItem(`enemy${id}`, JSON.stringify(enemy));
 });
 
 // Seksjon 3: Sloss!
