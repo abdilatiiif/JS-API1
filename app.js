@@ -146,8 +146,6 @@ fightBtn.addEventListener("click", () => {
     id: id,
   };
 
-  console.log(enemy, hero);
-
   let fightHTML = document.createElement("div");
 
   fightHTML.innerHTML = `  <div id="character-display" class="profile-card">
@@ -177,4 +175,33 @@ fightBtn.addEventListener("click", () => {
   fightHTML = "";
 });
 
-// npm test funker
+// Seksjon 4: Tester!
+/*
+// npm test funker, husk å kommenter ut all koden først før du bruker testene
+////////////////////////////////////////////////////////////
+//test 1
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// test 2
+
+const newCharacter = {
+  name: "Hero",
+  health: 100,
+  attackDamage: 25,
+  Image: "image.jpg",
+  id: 1,
+};
+
+// test 3
+
+function hvemVinner(hero, enemy) {
+  return hero.health === enemy.health
+    ? "uavgjort"
+    : `${enemy.health < hero.health ? "Helten vant" : "Fienden vant"}`;
+}
+
+module.exports = { getRandomNumber, newCharacter, hvemVinner };
+*/
