@@ -40,7 +40,7 @@ test("test duelen hero vinner?", () => {
   hvemVinner(hero, enemy);
   expect(hvemVinner(hero, enemy)).toBe("Helten vant");
 });
-test("hvem vinner duelen?", () => {
+test("fienden vinner duelen?", () => {
   const hero = { health: 70 };
   const enemy = { health: 100 };
 

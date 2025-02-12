@@ -14,8 +14,10 @@ const profilesPic = Array.from(
 
 const helterDiv = document.getElementsByClassName("helter");
 
+// lagre valgt bilde
 let selectedImg;
 
+// klikk event , loop over bildene,  ta ut bestemt src
 profilesPic.forEach((img) => {
   img.addEventListener("click", (e) => {
     selectedImg = e.target.src;
@@ -42,7 +44,8 @@ createCharacterBtn.addEventListener("click", () => {
   };
 
   // lagre på local storage med egen id
-  localStorage.setItem(`character${id}`, JSON.stringify(newCharacter));
+  localStorage.setItem(`${newCharacter.name}`, JSON.stringify(newCharacter));
+  getStoragename = newCharacter.name;
 
   // legg inn character på siden
 
@@ -71,6 +74,7 @@ createCharacterBtn.addEventListener("click", () => {
   selectedImg = null;
 
   console.log(newCharacter);
+  console.log(getStoragename);
 });
 
 //Seksjon 2: Generer fiende
@@ -107,7 +111,8 @@ createEnemyBtn.addEventListener("click", () => {
     id: id,
   };
   // lagre på local storage med egen id
-  localStorage.setItem(enemy.type + id, JSON.stringify(enemy));
+  localStorage.setItem(`enemy${id} `, JSON.stringify(enemy));
+  getEnemyId = `enemy${id}`;
 
   const enemyHTML = document.createElement("div");
   enemyHTML.innerHTML = `<div id="enemy-display">
@@ -119,7 +124,6 @@ createEnemyBtn.addEventListener("click", () => {
 
   // render monster på siden
   enemyContainer.appendChild(enemyHTML);
-  console.log(enemy);
 });
 
 // Seksjon 3: Sloss!
@@ -131,30 +135,33 @@ const battle = document.getElementById("battle");
 const result = document.getElementById("battle-result");
 
 fightBtn.addEventListener("click", () => {
-  battle.innerHTML = "";
+  battle.innerHTML = ""; // tømmer innhold etter hvert kamp
+
+  // hente data fra local storage
+  const storedHero = JSON.parse(localStorage.getItem(getStoragename));
+
+  if (!storedHero) {
+    alert("local storage finner ikke det navnet, lag ny karakter");
+  }
+
+  console.log(storedHero.name);
 
   const enemy = {
+    type: "monster",
     attackDamage: getRandomNumber(10, 40),
     health: getRandomNumber(50, 150),
     Image: monsterImg[Math.floor(Math.random() * monsterImg.length)],
     id: id,
   };
 
-  const hero = {
-    attackDamage: getRandomNumber(10, 40),
-    health: getRandomNumber(50, 150),
-    Image: heroImg[Math.floor(Math.random() * monsterImg.length)],
-    id: id,
-  };
-
   let fightHTML = document.createElement("div");
 
   fightHTML.innerHTML = `  <div id="character-display" class="profile-card">
-          <h2>Helten</h2>
-          <img id="char-img" src=${hero.Image} alt="Profilbilde" />
-          <p id="char-name"></p>
-          <p id="char-hp">Health: ${hero.health} 🩸</p>
-          <p id="char-attack">Attack Damage: ${hero.attackDamage} ⚔️</p>
+          <h2>${storedHero.name}</h2>
+          <img id="char-img" src=${storedHero.Image} alt="Profilbilde" />
+          <p id="char-name">Name: ${storedHero.name}</p>
+          <p id="char-hp">Health: ${storedHero.health} 🩸</p>
+          <p id="char-attack">Attack Damage: ${storedHero.attackDamage} ⚔️</p>
         </div> 
         
         <div id="enemy-fight-display" class="profile-card">
@@ -169,12 +176,14 @@ fightBtn.addEventListener("click", () => {
   battle.appendChild(fightHTML);
 
   result.innerHTML =
-    hero.health === enemy.health
+    storedHero.health === enemy.health
       ? "uavgjort"
-      : `${enemy.health < hero.health ? "Helten vant" : "Fienden vant"}`;
+      : `${enemy.health < storedHero.health ? "Helten vant" : "Fienden vant"}`;
 
   fightHTML = "";
 });
+
+////////////////////////////////////////////////////////////////
 
 // Seksjon 4: Tester!
 /*
